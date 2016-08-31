@@ -15,20 +15,20 @@ require('es6-promise').polyfill();
 
 elixir(function(mix) {
     mix.sass('app.scss')
-       .webpack('app.js');
-       // .scripts(
-		// 	[
-		// 		'public/js/app.js',
-		// 		'resources/assets/js/vendor/insp/inspinia.js',
-		// 		'resources/assets/js/vendor/metisMenu/jquery.metisMenu.js',
-		// 		'resources/assets/js/vendor/pace/pace.min.js',
-		// 		'resources/assets/js/vendor/slimscroll/jquery.slimscroll.min.js'
-		// 	],
-		// 	'public/js/all.js',
-		// 	'./'
-		// )
-       // .browserSync({
-	   	// 	proxy: 'adminpanel.dev',
-	   	// 	open: 'external'
-		// });
+       .webpack('app.js')
+       .scripts(
+			[
+				'public/js/app.js',
+				'resources/assets/js/vendor/insp/inspinia.js',
+				'resources/assets/js/vendor/metisMenu/jquery.metisMenu.js',
+				'resources/assets/js/vendor/pace/pace.min.js',
+				'resources/assets/js/vendor/slimscroll/jquery.slimscroll.min.js'
+			],
+			'public/js/all.js',
+			'./'
+		)
+       .browserSync({
+	   		proxy: 'adminpanel.dev',
+	   		open: 'external'
+		});
 });

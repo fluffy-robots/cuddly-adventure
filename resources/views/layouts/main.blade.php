@@ -71,6 +71,9 @@
                             <li><a href="#">Ansatte</a></li>
                         </ul>
                     </li>
+                    <li class="active">
+                        <a href="/UIelements"><i class="fa fa-tachometer nav--ikon-farve"></i> <span class="nav-label">UI Elementer</span></a></ul>
+                    </li>
                 </ul>
 
             </div>

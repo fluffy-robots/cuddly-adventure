@@ -16,3 +16,7 @@ use Illuminate\Http\Request;
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:api');
+
+Route::post('ui-elements/getElement', 'UIElementsController@getElement');
+Route::post('ui-elements/saveElement', 'UIElementsController@saveElement');
+Route::get('ui-elements/getAllElements', 'UIElementsController@getAllElements');

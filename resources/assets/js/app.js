@@ -15,6 +15,7 @@ require('./bootstrap');
 
 Vue.component('example', require('./components/Example.vue'));
 Vue.component('media-browser', require('./components/MediaBrowser.vue'));
+Vue.component('ui-elements', require('./components/UI-Elements.vue'));
 
 const app = new Vue({
     el: 'body'

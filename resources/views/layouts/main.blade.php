@@ -9,6 +9,11 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="/css/app.css">
+    <script>
+    window.Laravel = <?php echo json_encode([
+        'csrfToken' => csrf_token(),
+    ]); ?>
+</script>
 </head>
 <body id="wrapper">
     <nav class="navbar-default navbar-static-side" role="navigation">

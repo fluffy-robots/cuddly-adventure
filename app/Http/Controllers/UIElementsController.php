@@ -135,6 +135,7 @@ class UIElementsController extends Controller
                 $uiElement = new uiElement;
                 $uiElement->name = $file_name;
                 $file_path_with_ext = str_replace(base_path().'/resources/views/','',$file);
+                $file_path_with_ext = str_replace(base_path().'\resources/views/','',$file_path_with_ext);
                 $file_path = str_replace('.blade.php','',$file_path_with_ext);
                 $uiElement->file_path = $file_path;
                 $uiElement->save();

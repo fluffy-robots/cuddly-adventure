@@ -29,7 +29,7 @@ elixir(function(mix) {
 			'./'
 		)
        .browserSync({
-	   		proxy: 'adminpanel.dev',
+	   		proxy: 'cuddly-adventure.dev',
 	   		open: 'external'
 		});
 });

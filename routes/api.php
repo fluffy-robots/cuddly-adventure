@@ -20,3 +20,4 @@ Route::get('/user', function (Request $request) {
 Route::post('ui-elements/getElement', 'UIElementsController@getElement');
 Route::post('ui-elements/saveElement', 'UIElementsController@saveElement');
 Route::get('ui-elements/getAllElements', 'UIElementsController@getAllElements');
+Route::get('ui-elements/syncElements', 'UIElementsController@syncElements');

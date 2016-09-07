@@ -6,6 +6,7 @@ use App\uiElement;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\File;
 
 class UIElementsController extends Controller
 {
@@ -16,6 +17,7 @@ class UIElementsController extends Controller
      */
     public function index()
     {
+
         $elements = uiElement::all();
         return view('ui-elements.index',compact('elements'));
     }
@@ -113,5 +115,30 @@ class UIElementsController extends Controller
         $uiElement->updateViewFile($uiElement);
         unset($uiElement->code);
         $uiElement->save();
+    }
+
+    public function syncElements()
+    {
+        $Elements = uiElement::all();
+        $element_names = array();
+        foreach ($Elements as $element)
+        {
+            $element_names[] = $element->name;
+        }
+        $files = File::files(base_path('resources/views/ui-elements/elements'));
+        foreach ($files as $file)
+        {
+            $file_name = str_replace('.blade.php','',basename($file));
+
+            if(!in_array($file_name, $element_names))
+            {
+                $uiElement = new uiElement;
+                $uiElement->name = $file_name;
+                $file_path_with_ext = str_replace(base_path().'/resources/views/','',$file);
+                $file_path = str_replace('.blade.php','',$file_path_with_ext);
+                $uiElement->file_path = $file_path;
+                $uiElement->save();
+            }
+        }
     }
 }

@@ -23,9 +23,6 @@ Route::get('/home', 'HomeController@index');
 
 Route::get('/media', 'MediaController@index');
 
-<<<<<<< HEAD
 Route::get('/UIelements', 'UiController@index');
-=======
 
 Route::get('ui-elements', "UIElementsController@index");
->>>>>>> 142cc534121a3998cd6d51f0a9529ffdc346395d

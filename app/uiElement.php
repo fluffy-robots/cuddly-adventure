@@ -11,7 +11,7 @@ class uiElement extends Model
     {
         if(!$this->file_path)
         {
-            $this->file_path = 'ui-elements/elements/'.time() . '_' . $element->name;
+            $this->file_path = 'ui-elements/elements/'.$element->name;
         }
         File::put(base_path('resources/views/'.$this->file_path.'.blade.php'), $element->code);
     }

@@ -21,6 +21,7 @@ elixir(function(mix) {
 				'public/js/app.js',
 				'resources/assets/js/vendor/insp/inspinia.js',
 				'resources/assets/js/vendor/metisMenu/jquery.metisMenu.js',
+				'resources/assets/js/vendor/Emmet/emmet.js',
 				'resources/assets/js/vendor/pace/pace.min.js',
 				'resources/assets/js/vendor/slimscroll/jquery.slimscroll.min.js'
 			],

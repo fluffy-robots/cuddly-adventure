@@ -77,10 +77,9 @@
                         </ul>
                     </li>
                     <li class="active">
-                        <a href="/UIelements"><i class="fa fa-tachometer nav--ikon-farve"></i> <span class="nav-label">UI Elementer</span></a></ul>
+                        <a href="/ui-elements"><i class="fa fa-tachometer nav--ikon-farve"></i> <span class="nav-label">UI Elementer</span></a></ul>
                     </li>
                 </ul>
-
             </div>
         </nav>
          <div id="page-wrapper" class="gray-bg">
@@ -230,7 +229,9 @@
             </div>
 
             <div class="wrapper wrapper-content">
-                @yield('content')
+                <div class="container-fluid">
+                    @yield('content')
+                </div>
             </div>
             <div class="footer">
                 <div class="pull-right">

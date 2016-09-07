@@ -18,11 +18,11 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index');
+Route::group(['middleware' => 'auth'], function ()
+{
+    Route::get('/home', 'HomeController@index');
+    
+    Route::get('/media', 'MediaController@index');
 
-
-Route::get('/media', 'MediaController@index');
-
-Route::get('/UIelements', 'UiController@index');
-
-Route::get('ui-elements', "UIElementsController@index");
+    Route::get('ui-elements', "UIElementsController@index");
+});

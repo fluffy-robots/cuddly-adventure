@@ -47,3 +47,7 @@ Vue.http.interceptors.push((request, next) => {
 
 
 window.toastr = require('toastr');
+
+window.swal = require('sweetalert2');
+
+window.select2 = require('select2');

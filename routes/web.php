@@ -22,6 +22,8 @@ Route::group(['middleware' => 'auth'], function ()
 {
     Route::get('/home', 'HomeController@index');
     
+    Route::get('/product-types', 'ProductTypeController@index');
+    
     Route::get('/media', 'MediaController@index');
 
     Route::get('ui-elements', "UIElementsController@index");

@@ -15,7 +15,10 @@
 @import "node_modules/font-awesome/scss/font-awesome";
 
 //Sweet-Alert
-@import "node_modules/sweetalert/dist/sweetalert";
+@import "node_modules/sweetalert2/dist/sweetalert2";
+
+//Select2
+@import "node_modules/select2/dist/css/select2";
 
 //Inspinia
 @import "vendor/inspinia";

@@ -28,6 +28,7 @@ elixir(function(mix) {
 			'public/js/all.js',
 			'./'
 		)
+	   .version(['css/app.css', 'js/app.js'])
        .browserSync({
 	   		proxy: 'cuddly-adventure.dev',
 	   		open: 'external'

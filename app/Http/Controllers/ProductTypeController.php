@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Field;
+use App\FieldType;
 use App\ProductType;
 use Illuminate\Http\Request;
 
@@ -14,11 +15,12 @@ class ProductTypeController extends Controller
     {
         $product_types = ProductType::all();
         $fields = Field::all();
+        $field_types = FieldType::all();
         foreach ($product_types as $product_type)
         {
             $product_type->load('fields');
             
-            $product_type->html = view('manufacturer.product_types_modal',compact('product_type','fields'))->render();
+            $product_type->html = view('manufacturer.product_types_modal',compact('product_type','fields','field_types'))->render();
         }
         return view('manufacturer.product_types',compact('product_types'));
     }

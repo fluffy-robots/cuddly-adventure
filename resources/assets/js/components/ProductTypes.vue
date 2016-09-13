@@ -55,6 +55,11 @@
         border-radius: 0;
         border: 1px solid #e7eaec;
     }
+    .field-modal-title {
+        padding: 0;
+        margin: 20px 0 0px 0;
+        font-size: 20px;
+    }
 </style>
 <script>
 export default
@@ -89,16 +94,7 @@ export default
                 reverseButtons: true,
                 confirmButtonText: 'Save',
                 showLoaderOnConfirm: true,
-                allowOutsideClick: false,
-                preConfirm: function(result,cancel) {
-                    return new Promise(function(resolve, reject) {
-                        if (result) {
-                            resolve();
-                        }else{
-                            reject();
-                        }
-                    });
-                }
+                allowOutsideClick: false
             }).then(function(result) {
                 console.log(result);
                 swal({
@@ -108,6 +104,15 @@ export default
                     showConfirmButton: false
                 });
                 toastr.success(vm.selected_product_type.name+" Saved");
+            }, function(dismiss) {
+                  // dismiss can be 'cancel', 'overlay', 'close', 'timer'
+                  if (dismiss === 'cancel') {
+                    swal(
+                      'Cancelled',
+                      'Your imaginary file is safe :)',
+                      'error'
+                    );
+                  }
             });
             $('.field-select').select2({
               placeholder: 'FieldType'

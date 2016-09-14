@@ -28,9 +28,11 @@
                 class="well">
                 <div class="row">
                     <div class="col-md-12">
+                        <h1><small>Preview</small></h1>
                         <div class="preview">
                             {{{ preview }}}
                         </div>
+                        <hr>
                     </div>
 
 

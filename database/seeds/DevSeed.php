@@ -42,7 +42,7 @@ class DevSeed extends Seeder
 
         $user = new App\User();
         $user->name = "Morten";
-        $user->email = "moorten@gmail.com";
+        $user->email = "mooorten@gmail.com";
         $user->password = bcrypt('password');
         $user->save();
         $user->addRole($role);

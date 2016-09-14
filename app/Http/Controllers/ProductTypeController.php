@@ -24,4 +24,11 @@ class ProductTypeController extends Controller
         }
         return view('manufacturer.product_types',compact('product_types'));
     }
+
+    public function getProductTypeModal()
+    {
+        $data = "";
+        $html = view('modal_view',compact('data'))->render();
+        return $html;
+    }
 }

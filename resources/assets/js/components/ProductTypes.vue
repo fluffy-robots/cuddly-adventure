@@ -1,21 +1,68 @@
 <template>
     <div class="row">
         <div class="col-md-12">
-            <input v-model="search" class="form-control">
-            <a href="#" class="add-product-type"><i class="fa fa-plus-square-o"></i></a>
-            <ul class="product-type-list list-group">
-                <li
-                    v-for="product_type in product_types | filterBy search"
-                    class="product-type-list-item list-group-item"
-                    @click="openModal(product_type)"
-                >
-                    {{ product_type.name }}
-                </li>
-            </ul>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="product-type-control-container">
+                        <button
+                                @click="openModal()"
+                                class="btn btn-default product-type-control"
+                        ><i class="fa fa-plus-square-o"></i> Add Product Type</button>
+                        <input v-model="search" placeholder="Search" class="form-control product-type-control-container">
+                        <button @click="show = 'grid'" v-bind:class="{ 'btn-active': show == 'grid'}" class="btn btn-default product-type-control"><i class="fa fa-th-list"></i> Grid</button>
+                        <button @click="show = 'list'" v-bind:class="{ 'btn-active': show == 'list'}" class="btn btn-default product-type-control"><i class="fa fa-th"></i> List</button>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div
+                        v-if="show == 'list'"
+                        class="table-responsive">
+                        <table class="table table-hover table-bordered">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Controls</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr
+                                v-for="product_type in product_types | filterBy search"
+                            >
+                                <th scope="row">{{ product_type.id }}</th>
+                                <td>{{ product_type.name }}</td>
+                                <td class="text-right">
+                                    <button
+                                            @click="openModal(product_type)"
+                                            class="btn btn-warning"
+                                    ><i class="fa fa-pencil-square-o"></i> Edit</button>
+                                    <button class="btn btn-danger"><i class="fa fa-trash-o"></i> Delete</button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <ul class="product-type-list list-group" v-if="show == 'grid'">
+                        <li
+                            v-for="product_type in product_types | filterBy search"
+                            class="product-type-list-item list-group-item"
+                            @click="openModal(product_type)"
+                        >
+                            {{ product_type.name }}
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 </template>
 <style>
+.panel-body {
+    background: white;
+}
+.product-type-control-container{
+    display: flex;
+}
 .add-product-type {
     color: #1ab394;
     font-size: 40px;
@@ -74,7 +121,8 @@ export default
     data(){
         return{
             search : "",
-            selected_product_type : {}
+            selected_product_type : {},
+            show: 'list'
         }
     },
     computed: {
@@ -102,18 +150,22 @@ export default
                     title: 'Product Type Saved!',
                     timer: 1000,
                     showConfirmButton: false
-                });
+                }).done();
                 toastr.success(vm.selected_product_type.name+" Saved");
             }, function(dismiss) {
-                  // dismiss can be 'cancel', 'overlay', 'close', 'timer'
-                  if (dismiss === 'cancel') {
+                // dismiss can be 'cancel', 'overlay', 'close', 'timer'
+                if (dismiss === 'cancel') {
                     swal(
-                      'Cancelled',
-                      'Your imaginary file is safe :)',
-                      'error'
-                    );
-                  }
-            });
+                        {
+                            type: 'error',
+                            title: 'Cancelled',
+                            timer: 1000,
+                            showConfirmButton: false
+                        }
+                    ).done();
+                    toastr.info(vm.selected_product_type.name+" wasn't Changed");
+                }
+            }).done();
             $('.field-select').select2({
               placeholder: 'FieldType'
             });

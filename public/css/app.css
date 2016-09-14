@@ -1,5 +1,4 @@
 @charset "UTF-8";
-@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
 /*!
  * Bootstrap v3.3.7 (http://getbootstrap.com)
  * Copyright 2011-2016 Twitter, Inc.
@@ -17635,5 +17634,9 @@ body {
 
 .nav > li > a {
   padding-bottom: 3px; }
+
+.btn-active {
+  border-color: #1ab394 !important;
+  background: rgba(26, 179, 148, 0.17) !important; }
 
 /*# sourceMappingURL=app.css.map */

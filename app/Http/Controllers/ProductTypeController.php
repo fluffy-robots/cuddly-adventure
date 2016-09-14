@@ -40,4 +40,9 @@ class ProductTypeController extends Controller
         $product_type->html = view('modal_view',compact('data'))->render();
         return $product_type;
     }
+
+    public function delete($id)
+    {
+        ProductType::findOrFail($id)->delete();
+    }
 }

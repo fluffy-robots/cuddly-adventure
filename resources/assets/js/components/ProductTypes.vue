@@ -5,7 +5,7 @@
                 <div class="panel-heading">
                     <div class="product-type-control-container">
                         <button
-                                @click="openModal()"
+                                @click="openModal(emptyModal)"
                                 class="btn btn-default product-type-control"
                         ><i class="fa fa-plus-square-o"></i> Add Product Type</button>
                         <input v-model="search" placeholder="Search" class="form-control product-type-control-container">
@@ -133,6 +133,12 @@ export default
         {
             var vm = this;
             vm.selected_product_type = product_type;
+
+            // Get Call
+//            vm.$http.get('url')
+//                    .then(function(response){
+//
+//            });
 
             swal({
                 title: vm.selected_product_type.name,

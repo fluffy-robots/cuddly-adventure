@@ -30,4 +30,5 @@ Route::group(['middleware' => 'auth'], function ()
 });
 
 Route::post('product-types/getProductTypeModal', 'ProductTypeController@getProductTypeModal');
-Route::delete('product-types/delete', 'ProductTypeController@delete');
+Route::get('product-types/getProductTypes','ProductTypeController@getProductTypes');
+Route::resource('product-types','ProductTypeController');

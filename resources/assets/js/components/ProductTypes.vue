@@ -5,7 +5,7 @@
                 <div class="panel-heading">
                     <div class="product-type-control-container">
                         <button
-                                @click="openModal(emptyModal)"
+                                @click="openModal('new')"
                                 class="btn btn-default product-type-control"
                         ><i class="fa fa-plus-square-o"></i> Add Product Type</button>
                         <input v-model="search" placeholder="Search" class="form-control product-type-control-container">
@@ -36,7 +36,10 @@
                                             @click="openModal(product_type)"
                                             class="btn btn-warning"
                                     ><i class="fa fa-pencil-square-o"></i> Edit</button>
-                                    <button class="btn btn-danger"><i class="fa fa-trash-o"></i> Delete</button>
+                                    <button
+                                        @click="deleteProductType(product_type)" 
+                                        class="btn btn-danger"
+                                    ><i class="fa fa-trash-o"></i> Delete</button>
                                 </td>
                             </tr>
                             </tbody>
@@ -121,7 +124,7 @@ export default
     data(){
         return{
             search : "",
-            selected_product_type : {},
+            is_new_product_type: false,
             show: 'list'
         }
     },
@@ -129,18 +132,50 @@ export default
         
     },
     methods: {
-        openModal: function(product_type)
+        deleteProductType: function (product_type)
         {
             var vm = this;
             var data = {
-                id: product_type.id;
+                _method : "DELETE"
+            }
+            vm.$http.post('/product-types/'+product_type.id,data)
+            .then(function(){
+                swal(
+                {
+                    type: 'error',
+                    title: 'Deleted',
+                    timer: 1000,
+                    showConfirmButton: false
+                }).done();
+                vm.refreshProductTypes();
+            });  
+        },
+
+        openModal: function(product_type)
+        {
+            var vm = this;
+            var id;
+            var name;
+            if (product_type == "new") {
+                vm.is_new_product_type = true;
+                name = '';
+            }
+            else{
+                vm.is_new_product_type = false;
+                id = product_type.id;
+                name = product_type.name;
+            }
+            var data = {
+                id: id
             }
             // Get Call
            vm.$http.post('/product-types/getProductTypeModal',data)
-            .then(function(html){
+            .then(function(response){
+                console.log(response.data.html);
+                id = response.data.id;
                 swal({
-                    title: product_type.name,
-                    html: product_type.html,
+                    title: name,
+                    html: response.data.html,
                     showCancelButton: true,
                     confirmButtonColor: '#1ab394',
                     reverseButtons: true,
@@ -157,31 +192,45 @@ export default
                         showConfirmButton: false
                     }).done();
 
+                    vm.refreshProductTypes();       
+
                     toastr.success(vm.selected_product_type.name+" Saved");
                 }, function(dismiss) {
                     // dismiss can be 'cancel', 'overlay', 'close', 'timer'
                     if (dismiss === 'cancel') 
                     {
-                        var data = {
-                            id: product_type.id,
-                            _method : "DELETE"
+                        if (vm.is_new_product_type) 
+                        {
+                            var data = {
+                                _method : "DELETE"
+                            }
+                            vm.$http.post('/product-types/'+id,data)
+                            .then(function(){
+                                swal(
+                                {
+                                    type: 'error',
+                                    title: 'Cancelled',
+                                    timer: 1000,
+                                    showConfirmButton: false
+                                }).done();
+                            });  
+                            vm.refreshProductTypes();
                         }
-                        vm.$http.post('/product-types/delete',data)
-                        .then(function(){
-                            swal(
-                            {
-                                type: 'error',
-                                title: 'Cancelled',
-                                timer: 1000,
-                                showConfirmButton: false
-                            }).done();
-                        });  
+
                     }
                 }).done();
             });
 
             $('.field-select').select2({
               placeholder: 'FieldType'
+            });
+        },
+        refreshProductTypes: function(){
+            var vm = this;
+
+            vm.$http.get('/product-types/getProductTypes')
+            .then(function(response){
+                vm.$set("product_types", response.data);
             });
         }
     },

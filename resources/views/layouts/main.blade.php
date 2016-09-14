@@ -8,7 +8,7 @@
     <title>Cuddly Adventure</title>
 
     <!-- Styles -->
-    <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" href="{{ elixir('css/app.css') }}">
     <script>
     window.Laravel = <?php echo json_encode([
         'csrfToken' => csrf_token(),
@@ -25,10 +25,10 @@
                             <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">{{ auth()->user()->name }}</strong>
                              </span> <span class="text-muted text-xs block">Indstillinger <b class="caret"></b></span> </span> </a>
                             <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                                <li><a href="profile.html">Profile</a></li>
-                                <li><a href="contacts.html">Contacts</a></li>
-                                <li><a href="mailbox.html">Mailbox</a></li>
-                                <li class="divider"></li>
+                                {{--<li><a href="profile.html">Profile</a></li>--}}
+                                {{--<li><a href="contacts.html">Contacts</a></li>--}}
+                                {{--<li><a href="mailbox.html">Mailbox</a></li>--}}
+                                {{--<li class="divider"></li>--}}
                                 <li>
                                     <a href="{{ url('/logout') }}"
                                         onclick="event.preventDefault();
@@ -47,11 +47,11 @@
                         <a href="grid_options.html"><i class="fa fa-tachometer nav--ikon-farve"></i> <span class="nav-label">Kontrolpanel</span></a>
                     </li>
                     <li class="active">
-                        <a href="#"><i class="fa fa-desktop nav--ikon-farve"></i> <span class="nav-label">Hjemmeside </span></a>
+                        <a href="#"><i class="fa fa-desktop nav--ikon-farve"></i> <span class="nav-label">Products </span></a>
                         <ul class="nav nav-second-level">
-                            <li><a href="/pages">Side Oversigt</a></li>
-                            <li><a href="/templates">Udseende</a></li>
-                            <li><a href="#">indstillinger</a></li>
+                            <li><a href="/product-catalog">Product Catalog</a></li>
+                            <li><a href="/products">Products</a></li>
+                            <li><a href="/product-types">Product Types</a></li>
                         </ul>
                     </li>
                     <li class="active">
@@ -59,21 +59,6 @@
                         <ul class="nav nav-second-level">
                             <li><a href="/files">Filer / Billeder</a></li>
                             <li><a href="/trashcan">Gendan</a></li>
-                        </ul>
-                    </li>
-                    <li class="active">
-                        <a href="#"><i class="fa fa-car nav--ikon-farve"></i> <span class="nav-label">Biler </span></a>
-                        <ul class="nav nav-second-level">
-                            <li><a href="#">Bil database</a></li>
-                            <li><a href="#">Opret ny bil</a></li>
-                            <li><a href="#">Henvendelser <span class="label label-info pull-right">12</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="active">
-                        <a href="#"><i class="fa fa-building nav--ikon-farve"></i> <span class="nav-label">Virksomhed </span></a>
-                        <ul class="nav nav-second-level">
-                            <li><a href="#">Kontakt information</a></li>
-                            <li><a href="#">Ansatte</a></li>
                         </ul>
                     </li>
                     <li class="active">
@@ -245,6 +230,6 @@
         </div>
 
 
-<script src="/js/all.js"></script>
+<script src="{{ elixir('js/app.js') }}"></script>
 </body>
 </html>

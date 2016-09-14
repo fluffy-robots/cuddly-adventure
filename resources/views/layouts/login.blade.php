@@ -8,7 +8,7 @@
 
     <title>Dashcar</title>
 
-   <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" href="{{ elixir('css/app.css') }}">
 </head>
 <body id="app-layout" class="background--login">
 
@@ -25,6 +25,6 @@
         <span class="logo">Dashcar</span> v 0.0.1
     </footer>
     <!-- JavaScripts -->
-    <script src="/js/all.js"></script>
+    <script src="{{ elixir('js/app.js') }}"></script>
 </body>
 </html>

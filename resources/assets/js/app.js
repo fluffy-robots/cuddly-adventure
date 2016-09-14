@@ -18,6 +18,7 @@ Vue.component('example', require('./components/Example.vue'));
 Vue.component('media-browser', require('./components/MediaBrowser.vue'));
 Vue.component('ui-elements', require('./components/UI-Elements.vue'));
 Vue.component('editor', require('./components/Editor.vue'));
+Vue.component('product-types', require('./components/ProductTypes.vue'));
 
 const app = new Vue({
     el: 'body'

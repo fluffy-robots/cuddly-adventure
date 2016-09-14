@@ -28,3 +28,6 @@ Route::group(['middleware' => 'auth'], function ()
 
     Route::get('ui-elements', "UIElementsController@index");
 });
+
+Route::post('product-types/getProductTypeModal', 'ProductTypeController@getProductTypeModal');
+Route::delete('product-types/delete', 'ProductTypeController@delete');

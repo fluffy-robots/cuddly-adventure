@@ -25,10 +25,19 @@ class ProductTypeController extends Controller
         return view('manufacturer.product_types',compact('product_types'));
     }
 
-    public function getProductTypeModal()
+    public function getProductTypeModal(Request $request)
     {
+        if ($request->id)
+        {
+            $product_type = ProductType::find($request->id);
+        }else {
+            $product_type ? new ProductType;
+            $product_type->name = "";
+            $product_type->save();
+        }
+        $product_type = ProductType::find($request->id)  ;
         $data = "";
-        $html = view('modal_view',compact('data'))->render();
-        return $html;
+        $product_type->html = view('modal_view',compact('data'))->render();
+        return $product_type;
     }
 }

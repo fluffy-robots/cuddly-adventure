@@ -19,11 +19,11 @@
                         class="table-responsive">
                         <table class="table table-hover table-bordered">
                             <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Name</th>
-                                <th>Controls</th>
-                            </tr>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Controls</th>
+                                </tr>
                             </thead>
                             <tbody>
                             <tr
@@ -132,46 +132,54 @@ export default
         openModal: function(product_type)
         {
             var vm = this;
-            vm.selected_product_type = product_type;
-
+            var data = {
+                id: product_type.id;
+            }
             // Get Call
-//            vm.$http.get('url')
-//                    .then(function(response){
-//
-//            });
-
-            swal({
-                title: vm.selected_product_type.name,
-                html: vm.selected_product_type.html,
-                showCancelButton: true,
-                confirmButtonColor: '#1ab394',
-                reverseButtons: true,
-                confirmButtonText: 'Save',
-                showLoaderOnConfirm: true,
-                allowOutsideClick: false
-            }).then(function(result) {
-                console.log(result);
+           vm.$http.post('/product-types/getProductTypeModal',data)
+            .then(function(html){
                 swal({
-                    type: 'success',
-                    title: 'Product Type Saved!',
-                    timer: 1000,
-                    showConfirmButton: false
-                }).done();
-                toastr.success(vm.selected_product_type.name+" Saved");
-            }, function(dismiss) {
-                // dismiss can be 'cancel', 'overlay', 'close', 'timer'
-                if (dismiss === 'cancel') {
-                    swal(
-                        {
-                            type: 'error',
-                            title: 'Cancelled',
-                            timer: 1000,
-                            showConfirmButton: false
+                    title: product_type.name,
+                    html: product_type.html,
+                    showCancelButton: true,
+                    confirmButtonColor: '#1ab394',
+                    reverseButtons: true,
+                    confirmButtonText: 'Save',
+                    showLoaderOnConfirm: true,
+                    allowOutsideClick: false
+                }).then(function(result) {
+                    console.log(result);
+
+                    swal({
+                        type: 'success',
+                        title: 'Product Type Saved!',
+                        timer: 1000,
+                        showConfirmButton: false
+                    }).done();
+
+                    toastr.success(vm.selected_product_type.name+" Saved");
+                }, function(dismiss) {
+                    // dismiss can be 'cancel', 'overlay', 'close', 'timer'
+                    if (dismiss === 'cancel') 
+                    {
+                        var data = {
+                            id: product_type.id,
+                            _method : "DELETE"
                         }
-                    ).done();
-                    toastr.info(vm.selected_product_type.name+" wasn't Changed");
-                }
-            }).done();
+                        vm.$http.post('/product-types/delete',data)
+                        .then(function(){
+                            swal(
+                            {
+                                type: 'error',
+                                title: 'Cancelled',
+                                timer: 1000,
+                                showConfirmButton: false
+                            }).done();
+                        });  
+                    }
+                }).done();
+            });
+
             $('.field-select').select2({
               placeholder: 'FieldType'
             });

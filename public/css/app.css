@@ -17635,9 +17635,6 @@ body {
 .nav > li > a {
   padding-bottom: 3px; }
 
-#page-wrapper {
-  height: auto !important; }
-
 #preview {
   margin: 0 auto !important;
   display: table !important;

@@ -20,6 +20,13 @@ Vue.component('ui-elements', require('./components/UI-Elements.vue'));
 Vue.component('editor', require('./components/Editor.vue'));
 Vue.component('product-types', require('./components/ProductTypes.vue'));
 
+Vue.component('field-types', function (resolve) {
+  // this special require syntax will instruct webpack to
+  // automatically split your built code into bundles which
+  // are automatically loaded over ajax requests.
+  require(['./components/FieldTypes.vue'], resolve);
+});
+
 const app = new Vue({
     el: 'body'
 });

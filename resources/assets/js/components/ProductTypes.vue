@@ -137,7 +137,7 @@ export default
             var vm = this;
             var data = {
                 _method : "DELETE"
-            }
+            };
             vm.$http.post('/product-types/'+product_type.id,data)
             .then(function(){
                 swal(
@@ -150,7 +150,6 @@ export default
                 vm.refreshProductTypes();
             });  
         },
-
         openModal: function(product_type)
         {
             var vm = this;
@@ -167,11 +166,9 @@ export default
             }
             var data = {
                 id: id
-            }
-            // Get Call
-           vm.$http.post('/product-types/getProductTypeModal',data)
+            };
+            vm.$http.post('/product-types/getProductTypeModal',data)
             .then(function(response){
-                console.log(response.data.html);
                 id = response.data.id;
                 swal({
                     title: name,
@@ -192,18 +189,18 @@ export default
                         showConfirmButton: false
                     }).done();
 
-                    vm.refreshProductTypes();       
+                    vm.refreshProductTypes();
 
                     toastr.success(vm.selected_product_type.name+" Saved");
                 }, function(dismiss) {
                     // dismiss can be 'cancel', 'overlay', 'close', 'timer'
-                    if (dismiss === 'cancel') 
+                    if (dismiss === 'cancel')
                     {
-                        if (vm.is_new_product_type) 
+                        if (vm.is_new_product_type)
                         {
                             var data = {
                                 _method : "DELETE"
-                            }
+                            };
                             vm.$http.post('/product-types/'+id,data)
                             .then(function(){
                                 swal(
@@ -213,16 +210,12 @@ export default
                                     timer: 1000,
                                     showConfirmButton: false
                                 }).done();
-                            });  
-                            vm.refreshProductTypes();
+                                vm.refreshProductTypes();
+                            });
                         }
 
                     }
                 }).done();
-            });
-
-            $('.field-select').select2({
-              placeholder: 'FieldType'
             });
         },
         refreshProductTypes: function(){

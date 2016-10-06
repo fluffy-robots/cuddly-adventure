@@ -17616,6 +17616,9 @@ button.toast-close-button {
 body {
   background: #2C3539; }
 
+html, body {
+  height: inherit !important; }
+
 .profile--image-menu {
   width: 50px; }
 
@@ -17643,5 +17646,8 @@ body {
 .btn-active {
   border-color: #1ab394 !important;
   background: rgba(26, 179, 148, 0.17) !important; }
+
+#page-wrapper {
+  height: 100vh; }
 
 /*# sourceMappingURL=app.css.map */

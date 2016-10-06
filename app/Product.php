@@ -6,12 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    public function product_types()
+    public function type()
     {
-        return $this->hasOne(ProductType::class);
+        return $this->belongsTo(ProductType::class);
     }
     public function categories()
     {
         return $this->hasMany(Category::class);
+    }
+
+    public function add_type($type)
+    {
+        return $this->type()->associate($type);
     }
 }

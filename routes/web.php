@@ -21,14 +21,15 @@ Auth::routes();
 Route::group(['middleware' => 'auth'], function ()
 {
     Route::get('/home', 'HomeController@index');
+
+    Route::get('products/getProducts','ProductController@getProducts');
+    Route::resource('products','ProductController');
     
-    Route::get('/product-types', 'ProductTypeController@index');
-    
+    Route::get('product-types/getProductTypes','ProductTypeController@getProductTypes');
+    Route::resource('product-types','ProductTypeController');
+
     Route::get('/media', 'MediaController@index');
 
     Route::get('ui-elements', "UIElementsController@index");
 });
 
-Route::post('product-types/getProductTypeModal', 'ProductTypeController@getProductTypeModal');
-Route::get('product-types/getProductTypes','ProductTypeController@getProductTypes');
-Route::resource('product-types','ProductTypeController');

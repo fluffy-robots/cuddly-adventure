@@ -8,6 +8,11 @@ class ProductType extends Model
 {
     public function fields()
     {
-        return $this->belongsToMany(Field::class);
+        return $this->hasMany(Field::class);
+    }
+
+    public function add_field($field)
+    {
+        return $this->fields()->save($field);
     }
 }

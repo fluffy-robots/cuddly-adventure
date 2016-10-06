@@ -10,4 +10,9 @@ class Field extends Model
     {
         return $this->belongsTo(FieldType::class,'field_type_id');
     }
+
+    public function add_type($field_type)
+    {
+        return $this->type()->associate($field_type);
+    }
 }

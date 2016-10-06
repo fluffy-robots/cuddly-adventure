@@ -14,18 +14,14 @@ require('./bootstrap');
  */
 
 
-Vue.component('example', require('./components/Example.vue'));
+// Vue.component('example', require('./components/Example.vue'));
 Vue.component('media-browser', require('./components/MediaBrowser.vue'));
 Vue.component('ui-elements', require('./components/UI-Elements.vue'));
 Vue.component('editor', require('./components/Editor.vue'));
 Vue.component('product-types', require('./components/ProductTypes.vue'));
-
-Vue.component('field-types', function (resolve) {
-  // this special require syntax will instruct webpack to
-  // automatically split your built code into bundles which
-  // are automatically loaded over ajax requests.
-  require(['./components/FieldTypes.vue'], resolve);
-});
+Vue.component('field-types', require('./components/FieldTypes.vue'));
+Vue.component('products', require('./components/Products.vue'));
+Vue.component('product-fields', require('./components/ProductFields.vue'));
 
 const app = new Vue({
     el: 'body'

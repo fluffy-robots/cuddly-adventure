@@ -40,3 +40,8 @@ $factory->define(App\Field::class, function (Faker\Generator $faker) {
         'name' => $faker->name
     ];
 });
+$factory->define(App\FieldType::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->name
+    ];
+});

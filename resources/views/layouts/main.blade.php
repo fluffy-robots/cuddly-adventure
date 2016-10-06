@@ -57,7 +57,7 @@
                     <li class="active">
                         <a href="#"><i class="fa fa-picture-o nav--ikon-farve"></i> <span class="nav-label">Media</span></a>
                         <ul class="nav nav-second-level">
-                            <li><a href="/files">Filer / Billeder</a></li>
+                            <li><a href="/media">Filer / Billeder</a></li>
                             <li><a href="/trashcan">Gendan</a></li>
                         </ul>
                     </li>

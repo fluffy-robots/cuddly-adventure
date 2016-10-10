@@ -98,9 +98,6 @@ export default
         }
     },
     ready(){
-        $('.field-select').select2({
-          placeholder: 'FieldType'
-        });
     }
 }
 </script>

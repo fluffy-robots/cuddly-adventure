@@ -27,10 +27,20 @@
 @import "node_modules/toastr/toastr";
 
 body {
+	display: flex;
 	background: #2C3539;
 }
-html, body {
-    height: inherit !important;
+
+aside {
+    width: 20vw;
+    height: 100vh;
+}
+
+main {
+    width: 80vw;
+    height: 100vh;
+    padding: 15px;
+    background: #efefef;
 }
 
 .profile--image-menu {

@@ -17614,10 +17614,19 @@ button.toast-close-button {
     width: 25em; } }
 
 body {
+  display: -webkit-box;
+  display: flex;
   background: #2C3539; }
 
-html, body {
-  height: inherit !important; }
+aside {
+  width: 20vw;
+  height: 100vh; }
+
+main {
+  width: 80vw;
+  height: 100vh;
+  padding: 15px;
+  background: #efefef; }
 
 .profile--image-menu {
   width: 50px; }

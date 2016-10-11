@@ -9,11 +9,13 @@
         <div class="media-list-container">
             <div v-bind:class="{ 'media-list' : show == 'list', 'media-grid' : show == 'grid' }">
                 <div class="media-head" v-if="show == 'list'">
+                    <li>Id</li>
                     <li>Name</li>
                     <li>type</li>
                     <li>path</li>
                     <li>updated_at</li>
                     <li>created_at</li>
+                    <li>Controls</li>
                 </div>
                 <div
                     class="media-item"
@@ -21,19 +23,22 @@
                     v-bind:class="{ 'selected': media.selected }"
                     @click="select(media)"
                 >
-                    <li>{{ media.name }}</li>
+                    <li>{{ media.id }}</li>
+                    <li><input class="media-update-control" type="text" name="" v-model="media.name"></li>
                     <li>{{ media.type }}</li>
                     <li>{{ media.path }}</li>
                     <li>{{ media.updated_at }}</li>
                     <li>{{ media.created_at }}</li>
+                    <li><a class="btn btn-danger" v-if="media.type != 'folder'" @click="deleteMedia(media)">Delete</a></li>
                 </div>
             </div>
         </div>
     </div>
     <div class="dropzone-upload-container">
-        <form action="/file-upload"
-          class="dropzone"
-          id="my-awesome-dropzone"></form>
+        <form action="/media/upload" class="dropzone" id="dropzone">
+            <input type="hidden" name="_token" value="{{ csrf_token }}">
+            <input type="hidden" name="parent_id" value="{{ current_folder_id }}">
+        </form>
     </div>
 </template>
 <style>
@@ -127,79 +132,35 @@
         overflow-y: auto;
         overflow-x: hidden;
     }
+    .media-update-control{
+        height: 100%;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        border: 0;
+        background: inherit;
+    }
 </style>
 <script>
 export default
 {
     props:{
-
+        media_list: {
+            coerce: function (val) {
+                return JSON.parse(val) // cast the value to Object
+            }
+        }
     },
     data(){
         return{
             search: '',
             show: 'list',
-            media_list:[
-                {
-                    name: 'Mappe #1',
-                    type: 'folder',
-                    path: '/',
-                    created_at: new Date( Date.now() + 5000000).toUTCString(),
-                    updated_at: new Date( Date.now() + 9000000).toUTCString()
-                },
-                {
-                    name: 'Billede #1',
-                    type: 'image',
-                    path: '/Mappe #1',
-                    created_at: new Date( Date.now() - 5000000).toUTCString(),
-                    updated_at: new Date( Date.now() + 1000000).toUTCString()
-                },
-                {
-                    name: 'PDF',
-                    type: 'pdf',
-                    path: '/',
-                    created_at: new Date( Date.now() - 1000000).toUTCString(),
-                    updated_at: new Date( Date.now() + 2000000).toUTCString()
-                },
-                {
-                    name: 'TXT',
-                    type: 'txt',
-                    path: '/',
-                    created_at: new Date( Date.now() + 1000000).toUTCString(),
-                    updated_at: new Date( Date.now() + 7200000).toUTCString()
-                },
-                {
-                    name: 'TXT',
-                    type: 'txt',
-                    path: '/',
-                    created_at: new Date( Date.now() + 1000000).toUTCString(),
-                    updated_at: new Date( Date.now() + 7200000).toUTCString()
-                },
-                {
-                    name: 'TXT',
-                    type: 'txt',
-                    path: '/',
-                    created_at: new Date( Date.now() + 1000000).toUTCString(),
-                    updated_at: new Date( Date.now() + 7200000).toUTCString()
-                },
-                {
-                    name: 'TXT',
-                    type: 'txt',
-                    path: '/',
-                    created_at: new Date( Date.now() + 1000000).toUTCString(),
-                    updated_at: new Date( Date.now() + 7200000).toUTCString()
-                },
-                {
-                    name: 'TXT',
-                    type: 'txt',
-                    path: '/',
-                    created_at: new Date( Date.now() + 1000000).toUTCString(),
-                    updated_at: new Date( Date.now() + 7200000).toUTCString()
-                }
-            ]
+            csrf_token : Laravel.csrfToken,
+            current_folder_id: 0
         }
     },
     computed: {
-        
+
     },
     methods: {
         add: function(){
@@ -208,6 +169,7 @@ export default
                     name: 'new Item',
                     type: 'folder',
                     path: '/',
+                    selected: false,
                     created_at: new Date( Date.now() + 5000000).toUTCString(),
                     updated_at: new Date( Date.now() + 9000000).toUTCString()
             };
@@ -231,6 +193,22 @@ export default
                 element.selected = false;
             });
         },
+        deleteMedia: function(media)
+        {
+            let vm = this;
+            vm.$http.post('/api/media/delete/'+media.id, { _method: 'DELETE' }).then(function(response){
+                toastr.success('Succesfully Deleted File');
+                vm.refresh(vm.current_folder_id);
+            });
+        },
+        refresh: function(folder_id = null)
+        {
+            let vm = this;
+            vm.$http.get('/api/media/getFiles/'+folder_id).then(function(response){
+                vm.$set('media_list', response.data);
+                vm.initialize();
+            });
+        },
         initialize: function(){
             let vm = this;
             vm.media_list.forEach(function(item, index, array){
@@ -242,6 +220,12 @@ export default
         let vm = this;
         vm.initialize();
 
+        $('.media-update-control').on('focusout',function(){
+            // ajax to update name
+            console.log('updating');
+        });
+
+
         var Dropzone = require("dropzone");
 
         Dropzone.options.dropzone = {
@@ -249,6 +233,8 @@ export default
                 this.on("complete", function (file) {
                     if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0)
                     {
+                        console.log('Queue Complete');
+                        toastr.success('Succesfully Uploaded Files');
                         this.removeAllFiles();
                         vm.refresh(vm.current_folder_id);
                     }

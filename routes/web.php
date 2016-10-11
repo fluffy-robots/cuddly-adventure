@@ -29,6 +29,7 @@ Route::group(['middleware' => 'auth'], function ()
     Route::resource('product-types','ProductTypeController');
 
     Route::get('/media', 'MediaController@index');
+    Route::post('/media/upload', 'MediaController@upload');
 
     Route::get('ui-elements', "UIElementsController@index");
 });

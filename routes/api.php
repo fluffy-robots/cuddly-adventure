@@ -21,3 +21,7 @@ Route::post('ui-elements/getElement', 'UIElementsController@getElement');
 Route::post('ui-elements/saveElement', 'UIElementsController@saveElement');
 Route::get('ui-elements/getAllElements', 'UIElementsController@getAllElements');
 Route::get('ui-elements/syncElements', 'UIElementsController@syncElements');
+
+
+Route::get('media/getFiles/{id?}', 'MediaController@getFiles');
+Route::delete('media/delete/{id}', 'MediaController@destroy');
